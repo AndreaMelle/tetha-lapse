@@ -1,0 +1,5 @@
+node_modules
+pictures
+bower_components
+
+.DS_Store
