@@ -218,19 +218,19 @@ TethaEndpoint.prototype.check_updates = function(fingerprint) {
 /*
  * POST /osc/commands/status
  * Acquires the execution status of the command.
- * cmdname: name of command issued
+ * cmdid: Command ID acquired by Commands/Execute
  * response: see https://developers.theta360.com/en/docs/v2/api_reference/protocols/commands_status.html
  */
-TethaEndpoint.prototype.check_cmd_status = function(cmdname) {
+TethaEndpoint.prototype.check_cmd_status = function(cmdid) {
 
   return new Promise(function(resolve, reject) {
-    if(!cmdname)
+    if(!cmdid)
     {
       var err = new TethaEndpoint.ThetaError('Invalid command name.');
       reject(err);
     }
 
-    rest.postJson(cmd_status_endpoint, { 'id' : cmdname }, {
+    rest.postJson(check_cmd_status_endpoint, { 'id' : cmdid }, {
       timeout : 5000
     }).on('timeout', function(ms) {
       var err = new TethaEndpoint.ThetaTimeout('Check command status request timed out');
@@ -473,17 +473,10 @@ TethaEndpoint.prototype.set_options = function(sid, options) {
       resolve(data);
     });
   });
-  
+
 };
 
-//             fs.writeFile(path.basename(tetha_latest_fileuri), response.raw, function(err) {
-//                 if(err) {
-//                     console.log('Failed to save file: ' + err);
-//                 }
-//                 else {
-//                     console.log('File saved: ' + tetha_latest_fileuri);
-//                 }
-//             });
+
 
 
 module.exports = TethaEndpoint;

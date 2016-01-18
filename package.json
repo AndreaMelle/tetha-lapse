@@ -4,7 +4,6 @@
   "dependencies": {
     "later": "^1.2.0",
     "promise": "^7.1.1",
-    "q": "^1.4.1",
     "restler": "^3.4.0"
   }
 }

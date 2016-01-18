@@ -1,19 +1,29 @@
 var rest = require('restler');
-var tetha = new (require('./tetha-api.js'))();
-var later = require('later');
-var fs = require('fs');
-var path = require('path');
-
+var tetha = new (require('./tetha-device.js'))();
 
 var tetha_session_id = null;
 var tetha_latest_fingerprint = null;
 var tetha_latest_fileuri = null;
 
-tetha.get_info().then(function(data) {
+tetha.start().then(function(data) {
   console.log(data);
+  return tetha.takePicture();
+}).then(function(data) {
+  console.log(data);
+  return tetha.savePicture(data.results.fileUri, 'pictures/', true);
+}).then(function(data) {
+  return tetha.stop();
+}).then(function(data) {
+  console.log("Camera session end.")
 }).catch(function(err) {
   console.log(err.name + ': ' + err.message);
 });
+
+// tetha.get_info().then(function(data) {
+//   console.log(data);
+// }).catch(function(err) {
+//   console.log(err.name + ': ' + err.message);
+// });
 
 // tetha.take_picture().then(function(data) {
 //   console.log(data);
