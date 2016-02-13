@@ -7,7 +7,7 @@ var tetha_latest_fileuri = null;
 
 var pic_start;
 var pic_end;
-var frequency = parseFloat(process.argv[3]) || 15.0 * 1000.0; //in ms
+var frequency = (Math.max(15.0, parseFloat(process.argv[3])) || 15.0) * 1000.0; //in ms
 var pictures_count = parseInt(process.argv[2]) || 5;
 var connected = false;
 var should_schedule = false;
