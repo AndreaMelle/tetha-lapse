@@ -178,7 +178,10 @@ TethaDevice.prototype.takePicture = function() {
 
 };
 
-TethaDevice.prototype.savePicture = function(imguri, outputdir, removeFromDevice) {
+/*
+ * Saves a picture in local directory and optionally deletes the file
+ */
+TethaDevice.prototype.savePicture = function(imguri, outputdir, removeFromDevice, withMetadata) {
   return new Promise(function(resolve, reject) {
 
     if(!outputdir || !fs.existsSync(outputdir))
@@ -195,6 +198,13 @@ TethaDevice.prototype.savePicture = function(imguri, outputdir, removeFromDevice
         }
         else {
             data['localpath'] = outputdir + path.basename(imguri);
+
+            if(withMetadata) {
+
+            } else {
+              
+            }
+
             if(removeFromDevice) {
               tetha.delete_image(imguri).then(resolve(data)).catch(function(err) {
                 console.log("Warning: delete image failed.")
@@ -204,6 +214,7 @@ TethaDevice.prototype.savePicture = function(imguri, outputdir, removeFromDevice
             else {
               resolve(data);
             }
+
         }
       });
 
